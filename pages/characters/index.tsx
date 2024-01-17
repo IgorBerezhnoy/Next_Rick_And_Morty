@@ -1,20 +1,20 @@
-import styles from '@/styles/Home.module.css';
 import {useCharacters} from '@/assets/hooks/useCharacters';
 import {CharacterCard} from '@/components/CharacterCard/characterCard';
 import {HeadMeta} from '@/components/HeadMeta/HeadMeta';
-import Navbar from '@/components/Navbar/Navbar';
+import {getLayout} from '@/components/Layout/Layout';
+import Link from 'next/link';
 
-export default function Characters() {
+function Characters() {
   const {characters} = useCharacters();
   return (
     <>
-      <HeadMeta title={'Create Next App'}/>
-      <Navbar/>
-      <main className={`${styles.main}`}>
-        {characters && characters.map(el => (
-          <CharacterCard key={el.id} character={el}/>
-        ))}
-      </main>
+      <HeadMeta title={'Characters'}/>
+      {characters && characters.map(el => (
+        <Link href={`/characters/${el.id}`} key={el.id}><CharacterCard character={el}/></Link>
+      ))}
     </>
   );
 }
+
+Characters.getLayout = getLayout;
+export default Characters;
