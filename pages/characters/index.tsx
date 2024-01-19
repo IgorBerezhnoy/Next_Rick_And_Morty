@@ -1,20 +1,28 @@
-import {useCharacters} from '@/assets/hooks/useCharacters';
-import {CharacterCard} from '@/components/CharacterCard/characterCard';
-import {HeadMeta} from '@/components/HeadMeta/HeadMeta';
-import {getLayout} from '@/components/Layout/Layout';
-import Link from 'next/link';
+import {API} from '../../assets/api/api';
+import {CharacterType, ResponseType} from '../../assets/api/rick-and-morty-api';
+import {PageWrapper} from '../../components/PageWrapper/PageWrapper';
+import {Header} from '../../components/Header/Header';
 
-function Characters() {
-  const {characters} = useCharacters();
+export const getStaticProps = async () => {
+  const characters = await API.rickAndMorty.getCharacters();
+  return {
+    props: {
+      characters
+    }
+  };
+};
+const Characters = ({characters}: Props) => {
+
   return (
-    <>
-      <HeadMeta title={'Characters'}/>
-      {characters && characters.map(el => (
-        <Link href={`/characters/${el.id}`} key={el.id}><CharacterCard character={el}/></Link>
-      ))}
-    </>
+    <PageWrapper>
+      <Header/>
+      {characters.results.map(el => (<div key={el.id}>
+        <div>{el.name}</div>
+      </div>))}
+    </PageWrapper>
   );
-}
-
-Characters.getLayout = getLayout;
+};
 export default Characters;
+type Props = {
+  characters: ResponseType<CharacterType>
+};
