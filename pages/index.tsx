@@ -5,6 +5,7 @@ import {getLayout} from '../components/Layout/BaseLayout/BaseLayout';
 
 const Home: NextPageWithLayout = () => (
   <PageWrapper>
+    <h1>Main</h1>
   </PageWrapper>
 );
 Home.getLayout = getLayout;
