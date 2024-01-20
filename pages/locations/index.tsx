@@ -4,6 +4,8 @@ import {Header} from '../../components/Header/Header';
 import {dehydrate, QueryClient, useQuery} from '@tanstack/react-query';
 import {API} from '../../assets/api/api';
 import {Card} from '../../components/Card/Card';
+import {getLayout} from '../../components/Layout/BaseLayout/BaseLayout';
+import Home from '../index';
 //
 // export const getServerSideProps = async () => {
 //   const episodes = await API.rickAndMorty.getEpisodes();
@@ -29,11 +31,14 @@ const Episodes = () => {
   const {data: locations} = useQuery<ResponseType<LocationType>>(['locations'], getLocations);
   return (
     <PageWrapper>
-      <Header/>
       {locations && locations.results.map(el => (<Card key={el.id} name={el.name}/>))}
     </PageWrapper>
   );
 };
+
+
+Episodes.getLayout = getLayout;
+
 export default Episodes;
 type Props = {
   episodes: ResponseType<EpisodeType>
