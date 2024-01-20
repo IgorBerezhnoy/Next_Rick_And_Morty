@@ -3,6 +3,7 @@ import {PageWrapper} from '../../components/PageWrapper/PageWrapper';
 import {Header} from '../../components/Header/Header';
 import {dehydrate, QueryClient, useQuery} from '@tanstack/react-query';
 import {API} from '../../assets/api/api';
+import {Card} from '../../components/Card/Card';
 //
 // export const getServerSideProps = async () => {
 //   const episodes = await API.rickAndMorty.getEpisodes();
@@ -10,10 +11,10 @@ import {API} from '../../assets/api/api';
 
 export const getStaticProps = async () => {
   const queryClient = new QueryClient();
-  await queryClient.fetchQuery(['locations', getLocations]);
+  await queryClient.fetchQuery(['locations'], getLocations);
   return {
     props: {
-      dehydratedState:dehydrate(queryClient)
+      dehydratedState: dehydrate(queryClient)
     }
   };
 };
@@ -29,9 +30,7 @@ const Episodes = () => {
   return (
     <PageWrapper>
       <Header/>
-      {locations && locations.results.map(el => (<div key={el.id}>
-        <div>{el.name}</div>
-      </div>))}
+      {locations && locations.results.map(el => (<Card key={el.id} name={el.name}/>))}
     </PageWrapper>
   );
 };
