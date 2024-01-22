@@ -18,7 +18,7 @@ type PropsType = {
     character: CharacterType;
 };
 
-export const CharacterCard = (props: PropsType) => {
+export  const CharacterCard = (props: PropsType) => {
     const {id, name, image, status} = props.character;
 
     return (
